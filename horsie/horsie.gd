@@ -17,13 +17,20 @@ var horsie_ketchup_multiplier := 1.0
 var horsie_speed_variation := 1.0
 var is_last := false
 var in_turbo := false
-var turbo_sounds = []
+onready var turbo_sounds = $turbo_sounds.get_children()
 onready var turbo_timer = get_node("/root/world/turbo_timer")
 onready var follow: PathFollow2D = $follow
 onready var anim = $anim
 
+
+
+var sound_time_delay : float
+
+
+
+
+
 func _ready():
-	
 	if globals.turbo_mode:
 		add_face()
 		pump_the_horsie()
@@ -64,14 +71,22 @@ func pump_the_horsie():
 	horsie_speed_variation = 20.0
 	
 func can_go_turbo():
-	if globals.turbo_mode and Engine.get_frames_drawn() > 2000: # wait till the end of the song's intro to start turboing...
+	$turbo_start_timer.time_left
+	if globals.turbo_mode and $turbo_start_timer.is_stopped(): # wait till the end of the song's intro to start turboing...
 		if is_last and turbo_timer.is_stopped() and globals.rng.randf() < turbo_probability:
 			in_turbo = true
-			$turbo_sounds.get_children()[globals.rng.randi_range(0,4)].play()
-			$turbo_flames.show()
+			turbo_sounds[globals.rng.randi_range(0,4)].play()
+			# apparently there's an issue with sound lagging on play that
+			# on linux due to the pulseaudio lib
+			# this added soun_time_delay is a shitty workaround, but makes
+			# the  fart sounds play when they should
+			sound_time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+			yield(get_tree().create_timer(sound_time_delay), "timeout")
 			turbo_timer.start()
+			$turbo_flames.show()
 			return true
 		elif not turbo_timer.is_stopped() and in_turbo:
 			return true
 	
+
 

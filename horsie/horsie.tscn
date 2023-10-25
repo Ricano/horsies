@@ -130,22 +130,22 @@ texture = ExtResource( 3 )
 
 [node name="turbo_sounds" type="Node" parent="."]
 
-[node name="1" type="AudioStreamPlayer2D" parent="turbo_sounds"]
+[node name="a" type="AudioStreamPlayer2D" parent="turbo_sounds"]
 stream = ExtResource( 7 )
 volume_db = 8.18
 
-[node name="2" type="AudioStreamPlayer2D" parent="turbo_sounds"]
+[node name="b" type="AudioStreamPlayer2D" parent="turbo_sounds"]
 stream = ExtResource( 8 )
 
-[node name="3" type="AudioStreamPlayer2D" parent="turbo_sounds"]
+[node name="c" type="AudioStreamPlayer2D" parent="turbo_sounds"]
 stream = ExtResource( 6 )
 volume_db = 4.285
 
-[node name="4" type="AudioStreamPlayer2D" parent="turbo_sounds"]
+[node name="d" type="AudioStreamPlayer2D" parent="turbo_sounds"]
 stream = ExtResource( 9 )
 volume_db = 5.843
 
-[node name="5" type="AudioStreamPlayer2D" parent="turbo_sounds"]
+[node name="e" type="AudioStreamPlayer2D" parent="turbo_sounds"]
 stream = ExtResource( 5 )
 volume_db = 6.232
 
@@ -155,5 +155,10 @@ position = Vector2( -17, -1 )
 rotation = -1.39626
 scale = Vector2( 0.05, 0.1 )
 frames = SubResource( 11 )
-frame = 1
+frame = 2
 playing = true
+
+[node name="turbo_start_timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
