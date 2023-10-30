@@ -76,10 +76,10 @@ func can_go_turbo():
 		if is_last and turbo_timer.is_stopped() and globals.rng.randf() < turbo_probability:
 			in_turbo = true
 			turbo_sounds[globals.rng.randi_range(0,4)].play()
-			# apparently there's an issue with sound lagging on play that
-			# on linux due to the pulseaudio lib
-			# this added soun_time_delay is a shitty workaround, but makes
-			# the  fart sounds play when they should
+			# apparently there's an issue with sound lagging on play in linux
+			# due to the pulseaudio lib ¯\_(ツ)_/¯
+			# this added 'sound_time_delay' is a shitty workaround, but makes
+			# the fart sounds play when they should \o/
 			sound_time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 			yield(get_tree().create_timer(sound_time_delay), "timeout")
 			turbo_timer.start()

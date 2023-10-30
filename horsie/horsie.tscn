@@ -155,7 +155,7 @@ position = Vector2( -17, -1 )
 rotation = -1.39626
 scale = Vector2( 0.05, 0.1 )
 frames = SubResource( 11 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="turbo_start_timer" type="Timer" parent="."]
