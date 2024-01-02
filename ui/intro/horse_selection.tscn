@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/intro/horse_selection.gd" type="Script" id=1]
+[ext_resource path="res://ui/font12.tres" type="DynamicFont" id=2]
+
+[node name="HorseSelection" type="Node2D"]
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 1 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 694.0
+margin_bottom = 469.0
+color = Color( 0.372549, 0.333333, 0.0392157, 0.588235 )
+
+[node name="Names" type="GridContainer" parent="."]
+columns = 3
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 272.857
+margin_top = 391.429
+margin_right = 386.857
+margin_bottom = 434.429
+custom_colors/font_color_hover = Color( 0.909804, 0.0392157, 0.0392157, 1 )
+custom_colors/font_color_pressed = Color( 0.0235294, 0.839216, 0.0352941, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "START"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

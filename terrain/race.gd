@@ -5,9 +5,30 @@ var laps := {}
 var progress := {}
 var ranks := {}
 
+var horsie_scene = preload("res://horsie/horsie.tscn")
+
+var colors := [
+	Color.red,
+	Color.royalblue,
+	Color.orangered,
+	Color.purple,
+	Color.yellow,
+	Color.aqua,
+	Color.brown,
+	Color.coral,
+	Color.cornflower,
+	Color.crimson,
+	Color.cyan,
+	Color.deeppink,
+	Color.dodgerblue,
+	Color.gold,
+	]
+
 
 func _ready():
 	self.process_priority = +1  # to process this node after horsies
+
+	set_up_horsies()
 
 	var tree := self.get_tree()
 #	tree.paused = true
@@ -83,6 +104,14 @@ func _process(delta):
 		else:
 			$gui/laps.text = ""
 
+func set_up_horsies():
+	var i = 0
+	for name in globals.horsies:
+		var new_horsie = horsie_scene.instance()
+		new_horsie.name = name
+		new_horsie.tint = colors[i]
+		$horsies.add_child(new_horsie)
+		i += 1
 
 func _horsies_order(h1, h2):
 	return self.progress[h1] >= self.progress[h2]

@@ -22,7 +22,6 @@ _global_script_class_icons={
 
 config/name="horsies"
 run/main_scene="res://ui/intro/intro_menu.tscn"
-config/icon="res://icon.png"
 
 [audio]
 

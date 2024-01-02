@@ -173,12 +173,19 @@ valign = 1
 anims/countdown = SubResource( 1 )
 
 [node name="ranks" type="RichTextLabel" parent="gui"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 120.0
-margin_bottom = 184.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 117.0
+margin_bottom = 181.0
+rect_scale = Vector2( 0.56, 1 )
 custom_fonts/normal_font = ExtResource( 22 )
 bbcode_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="gui/ranks"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.286275 )
 
 [node name="laps" type="Label" parent="gui"]
 anchor_left = 1.0
@@ -944,56 +951,56 @@ position = Vector2( 172, 239 )
 
 [node name="horsies" type="YSort" parent="."]
 
-[node name="Rei" parent="horsies" instance=ExtResource( 4 )]
+[node name="hidden_horsies" type="Node2D" parent="."]
+visible = false
+
+[node name="Rei" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0.321569, 0.227451, 0.027451, 1 )
 
-[node name="Diogo" parent="horsies" instance=ExtResource( 4 )]
+[node name="Diogo" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 137, 216 )
 
-[node name="João" parent="horsies" instance=ExtResource( 4 )]
+[node name="João" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0.0784314, 1, 0, 1 )
 
-[node name="Rodrigo" parent="horsies" instance=ExtResource( 4 )]
+[node name="Rodrigo" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0.223529, 0.596078, 0.101961, 1 )
 
-[node name="Nuno" parent="horsies" instance=ExtResource( 4 )]
+[node name="Nuno" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0.137255, 0.211765, 1, 1 )
 
-[node name="Alex" parent="horsies" instance=ExtResource( 4 )]
+[node name="Alex" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 1, 0, 0, 1 )
 
-[node name="Malafas" parent="horsies" instance=ExtResource( 4 )]
+[node name="Malafas" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 124, 206 )
 scale = Vector2( 0.7, 0.7 )
 tint = Color( 0.898039, 0.301961, 0.0392157, 1 )
 
-[node name="Caetano" parent="horsies" instance=ExtResource( 4 )]
+[node name="Caetano" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0, 0.976471, 1, 1 )
 
-[node name="Marlene" parent="horsies" instance=ExtResource( 4 )]
+[node name="Marlene" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 147, 196 )
 tint = Color( 0.960784, 0.945098, 0.0117647, 1 )
 
-[node name="Catarino" parent="horsies" instance=ExtResource( 4 )]
+[node name="Catarino" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0, 0.788235, 1, 1 )
 
-[node name="Fátima" parent="horsies" instance=ExtResource( 4 )]
+[node name="Fátima" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 147, 196 )
 tint = Color( 1, 0, 0.631373, 1 )
 
-[node name="Vasco" parent="horsies" instance=ExtResource( 4 )]
+[node name="Vasco" parent="hidden_horsies" instance=ExtResource( 4 )]
 position = Vector2( 110, 190 )
 tint = Color( 0.137255, 1, 0.878431, 1 )
-
-[node name="hidden_horsies" type="Node2D" parent="."]
-visible = false
 
 [node name="turbo_timer" type="Timer" parent="."]
 wait_time = 1.618

@@ -4,6 +4,9 @@ var rng := RandomNumberGenerator.new()
 
 var turbo_mode
 
+var horsies := []
+
+
 func _ready():
 	self.rng.randomize()
 	self.pause_mode = PAUSE_MODE_PROCESS
