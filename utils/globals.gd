@@ -6,6 +6,9 @@ var turbo_mode
 
 var horsies := []
 
+var number_of_laps : int
+
+var is_race_finished : bool
 
 func _ready():
 	self.rng.randomize()

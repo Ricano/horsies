@@ -1,6 +1,6 @@
 extends Node
 
-export(int, 0, 10) var n_laps := 5
+var n_laps := globals.number_of_laps
 var laps := {}
 var progress := {}
 var ranks := {}
@@ -26,6 +26,7 @@ var colors := [
 
 
 func _ready():
+	globals.is_race_finished = false
 	self.process_priority = +1  # to process this node after horsies
 
 	set_up_horsies()
@@ -86,23 +87,24 @@ func _process(delta):
 			horsies[i].is_last = true
 			
 	# Update ranks and laps UI.
-	var ranks := PoolStringArray()
-	var current_lap := 0
-	for horsie in horsies:
-		ranks.append("[color=#{color}]{rank}. {name}[/color]".format({
-			color=horsie.tint.to_html(),
-			rank=self.ranks[horsie],
-			name=horsie.name
-		}))
-		current_lap = max(current_lap, self.laps[horsie] + 1)
+	if not globals.is_race_finished:
+		var ranks := PoolStringArray()
+		var current_lap := 0
+		for horsie in horsies:
+			ranks.append("[color=#{color}]{rank}. {name}[/color]".format({
+				color=horsie.tint.to_html(),
+				rank=self.ranks[horsie],
+				name=horsie.name
+			}))
+			current_lap = max(current_lap, self.laps[horsie] + 1)
 
-	if current_lap > 0:
-		$gui/ranks.bbcode_text = ranks.join("\n")
-		$gui/ranks.set_fit_content_height(true)
-		if current_lap <= self.n_laps:
-			$gui/laps.text = "Lap {0} of {1}".format([current_lap, self.n_laps])
-		else:
-			$gui/laps.text = ""
+		if current_lap > 0:
+			$gui/ranks.bbcode_text = ranks.join("\n")
+			$gui/ranks.set_fit_content_height(true)
+			if current_lap <= self.n_laps:
+				$gui/laps.text = "Lap {0} of {1}".format([current_lap, self.n_laps])
+			else:
+				$gui/laps.text = ""
 
 func set_up_horsies():
 	var i = 0
@@ -131,6 +133,7 @@ func _on_lap_completed(horsie):
 
 
 func finish_race():
+	globals.is_race_finished = true
 	var camera := $camera as Camera2D
 	if not camera:
 		return

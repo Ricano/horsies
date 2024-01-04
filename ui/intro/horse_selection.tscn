@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/intro/horse_selection.gd" type="Script" id=1]
 [ext_resource path="res://ui/font12.tres" type="DynamicFont" id=2]
+[ext_resource path="res://horsie/horsie.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://ui/LLPIXEL3.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 15
+outline_size = 1
+outline_color = Color( 0.670588, 0.0666667, 0.0666667, 1 )
+font_data = SubResource( 1 )
 
 [node name="HorseSelection" type="Node2D"]
 scale = Vector2( 0.7, 0.7 )
@@ -24,5 +34,47 @@ custom_colors/font_color_hover = Color( 0.909804, 0.0392157, 0.0392157, 1 )
 custom_colors/font_color_pressed = Color( 0.0235294, 0.839216, 0.0352941, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "START"
+
+[node name="SliderBackground" type="ColorRect" parent="."]
+margin_left = 430.0
+margin_top = 382.857
+margin_right = 663.0
+margin_bottom = 450.857
+color = Color( 0.792157, 0.192157, 0.898039, 0.588235 )
+
+[node name="HSlider" type="HSlider" parent="SliderBackground"]
+margin_left = 77.0
+margin_top = 3.0
+margin_right = 283.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 20, 16 )
+rect_scale = Vector2( 0.714626, 1.80766 )
+custom_icons/grabber_disabled = ExtResource( 3 )
+custom_icons/grabber_highlight = ExtResource( 3 )
+custom_icons/grabber = ExtResource( 3 )
+min_value = 1.0
+max_value = 10.0
+value = 5.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="Laps" type="Label" parent="SliderBackground/HSlider"]
+margin_left = -101.752
+margin_top = -3.24016
+margin_right = -45.7515
+margin_bottom = 21.7598
+rect_scale = Vector2( 2.43931, 1.03173 )
+custom_colors/font_color = Color( 0.87451, 1, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Laps"
+
+[node name="Label" type="Label" parent="SliderBackground/HSlider/Laps"]
+margin_left = 9.8342
+margin_top = 22.9794
+margin_right = 49.8342
+margin_bottom = 53.9794
+custom_colors/font_color = Color( 1, 0.937255, 0, 1 )
+text = "X
+"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

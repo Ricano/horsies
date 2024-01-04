@@ -50,7 +50,7 @@ func _process(delta: float):
 	if not in_turbo:
 		$turbo_flames.hide()
 	self.follow.offset += self.speed * delta
-	if self.follow.unit_offset < previous_unit_offset:
+	if self.follow.unit_offset < previous_unit_offset and not globals.is_race_finished:
 		self.emit_signal("lap_completed")
 	anim.playback_speed = self.speed/MAX_SPEED
 
