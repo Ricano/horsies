@@ -25,3 +25,4 @@ func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		Engine.time_scale = 1.0
 		self.get_tree().reload_current_scene()
+

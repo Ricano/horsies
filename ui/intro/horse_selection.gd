@@ -12,28 +12,41 @@ onready var slider = $SliderBackground/HSlider
 
 
 func _ready():
-	load_file(file)
+	get_photos_names()
 	setup_names()
 
 
 func _process(delta):
 	n_laps_label.text = str(slider.value)
-
-
-func load_file(file_name):
-	var f = File.new()
-	f.open(file_name, File.READ)
-	var index = 1
+	
+	
+func get_photos_names():
+	var folder_path = "res://horsie/faces/"
+	var dir = Directory.new()
+	if dir.open(folder_path) == OK:
+		dir.list_dir_begin(true,true)
+		var file_name = dir.get_next()
+		while file_name != "":
+			names.append(file_name.split(".")[0])
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		print("Failed to open directory:", folder_path)
+	
+	names = eliminate_duplicates(names)
+	names.sort()
 	print("############ Loaded horsies ############")
-	while not f.eof_reached(): # iterate through all lines until the end of file is reached
-		var line = f.get_line()
-		if line:
-			names.append(line)
-			print(line)
-		index += 1
-	f.close()
-	print()
-	return
+	print(names)
+
+
+func eliminate_duplicates(array: Array) -> Array:
+	var unique := []
+	for item in array:
+		if not unique.has(item):
+			unique.append(item)
+	return unique
+
+
 
 
 func setup_names():
@@ -43,9 +56,12 @@ func setup_names():
 		var label = Label.new()
 		var button = CheckButton.new()
 		label.text = get_with_spaces(name)
+		label.margin_left += 55
+		label.margin_top += 5
 		button.icon = face_texture
+		button.set("custom_styles/focus",StyleBoxEmpty.new())
 		button.pressed = true
-		container.add_child(label)
+		button.add_child(label)
 		container.add_child(button)
 		names_node.add_child(container)
 
@@ -62,6 +78,9 @@ func get_with_spaces(name):
 func _on_StartButton_pressed():
 	var result = get_active_names()
 	print("############ Selected horsies ############")
+	randomize()
+	result.shuffle()
+	
 	for x in result:
 		print(x)
 	
@@ -77,8 +96,8 @@ func _on_StartButton_pressed():
 func get_active_names():
 	var result := []
 	for child in names_node.get_children():
-		if child.get_child(1).pressed:
-			result.append(child.get_child(0).text.strip_edges(true, true))
+		if child.get_child(0).pressed:
+			result.append(child.get_child(0).get_child(0).text.strip_edges(true, true))
 	return result
 	
 
