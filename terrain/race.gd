@@ -26,6 +26,7 @@ var colors := [
 
 
 func _ready():
+	# Engine.time_scale = 10
 	globals.is_race_finished = false
 	self.process_priority = +1  # to process this node after horsies
 
@@ -134,6 +135,7 @@ func _on_lap_completed(horsie):
 
 func finish_race():
 	globals.is_race_finished = true
+
 	var camera := $camera as Camera2D
 	if not camera:
 		return
@@ -145,6 +147,8 @@ func finish_race():
 			rank1_horsies.append(horsie)
 	assert(rank1_horsies.size() > 0)
 	var winner = rank1_horsies[globals.rng.randi() % rank1_horsies.size()]
+	if globals.is_official_race:
+		save_winner(winner)
 	winner.z_index = 10 # bring winner to the foreground
 
 	var camera_pos := camera.global_position
@@ -192,3 +196,8 @@ func _on_turbo_timer_timeout():
 	var horsies := $horsies.get_children()
 	for h in horsies:
 		h.in_turbo = false
+
+
+func save_winner(winner):
+	globals.file_save(globals.WINNERS_FILE, Time.get_date_string_from_system() + " " + str(winner.name))
+	

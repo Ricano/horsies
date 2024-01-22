@@ -9,6 +9,10 @@ onready var names_node = $Names
 onready var n_laps_label = $SliderBackground/HSlider/Laps/Label
 onready var slider = $SliderBackground/HSlider
 
+onready var pop_up = $LastWinnersPopup
+onready var winners_button = $LastWinnersButton
+
+onready var tool_tip = $OfficialRaceCheckBox/Control/ToolTip
 
 
 func _ready():
@@ -18,8 +22,13 @@ func _ready():
 
 func _process(delta):
 	n_laps_label.text = str(slider.value)
-	
-	
+
+
+func _input(event):
+	if pop_up.visible and event is InputEventMouseButton:
+			pop_up.visible=false
+
+
 func get_photos_names():
 	var folder_path = "res://horsie/faces/"
 	var dir = Directory.new()
@@ -52,19 +61,23 @@ func eliminate_duplicates(array: Array) -> Array:
 func setup_names():
 	for name in names:
 		var face_texture = load("res://horsie/faces/" + str(name) + ".png")
+		var face_sprite = Sprite.new()
+		face_sprite.texture=face_texture 
 		var container = HBoxContainer.new()
 		var label = Label.new()
 		var button = CheckButton.new()
 		label.text = get_with_spaces(name)
-		label.margin_left += 55
-		label.margin_top += 5
-		button.icon = face_texture
-		button.set("custom_styles/focus",StyleBoxEmpty.new())
+		container.add_child(face_sprite)
+		var vbox = VBoxContainer.new()
+		container.add_child(vbox)
+		button.set("custom_styles/focus",StyleBoxEmpty.new()) # remove the on hover borders around the buttons
 		button.pressed = true
+		vbox.add_child(button)
 		button.add_child(label)
-		container.add_child(button)
+		label.margin_top -=10
+		label.margin_left -=10
 		names_node.add_child(container)
-
+		face_sprite.global_position+=Vector2(-18, 18)
 
 func get_with_spaces(name):
 	var l = len(name)
@@ -76,6 +89,9 @@ func get_with_spaces(name):
 
 
 func _on_StartButton_pressed():
+	globals.is_official_race = false
+	if $OfficialRaceCheckBox.pressed:
+		globals.is_official_race = true
 	var result = get_active_names()
 	print("############ Selected horsies ############")
 	randomize()
@@ -91,13 +107,34 @@ func _on_StartButton_pressed():
 	else:
 		# Todo: make a warning popup
 		pass
-	
+
 
 func get_active_names():
 	var result := []
 	for child in names_node.get_children():
-		if child.get_child(0).pressed:
-			result.append(child.get_child(0).get_child(0).text.strip_edges(true, true))
+		# if button is pressed (toggled on)
+		if child.get_child(1).get_child(0).pressed:
+			# get the associated label text
+			result.append(child.get_child(1).get_child(0).get_child(0).text.strip_edges(true, true))
 	return result
-	
 
+
+func _on_BackButton_pressed():
+	get_tree().change_scene("res://ui/intro/intro_menu.tscn")
+
+
+func _on_LastWinnersButton_pressed():
+	pop_up.get_node("Label").text = get_last_winnners_info()
+	pop_up.popup()
+
+
+func get_last_winnners_info():
+	return globals.file_load(globals.WINNERS_FILE)
+
+
+func _on_Control_mouse_entered():
+	tool_tip.show()
+
+
+func _on_Control_mouse_exited():
+	tool_tip.hide()
