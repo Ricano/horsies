@@ -26,7 +26,7 @@ var colors := [
 
 
 func _ready():
-	# Engine.time_scale = 10
+#	Engine.time_scale = 10
 	globals.is_race_finished = false
 	self.process_priority = +1  # to process this node after horsies
 

@@ -12,7 +12,7 @@ var is_race_finished : bool
 
 var is_official_race : bool
 
-const WINNERS_FILE = "res://utils/past_winners"
+const WINNERS_FILE = "./past_winners"
 
 func _ready():
 	self.rng.randomize()
