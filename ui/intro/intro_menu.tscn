@@ -14,42 +14,43 @@ font_data = ExtResource( 1 )
 script = ExtResource( 5 )
 
 [node name="background" type="ColorRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 67.0
+margin_bottom = 56.0
 rect_scale = Vector2( 11.9775, 8.05409 )
 color = Color( 0.372549, 0.333333, 0.0392157, 0.588235 )
 
 [node name="sprite" type="Sprite" parent="background"]
-position = Vector2( 31.4791, 11.9801 )
+position = Vector2( 50.9322, 16.9465 )
 scale = Vector2( -0.458, 0.458 )
 texture = ExtResource( 4 )
 
 [node name="turbo_label" type="Label" parent="."]
-margin_left = 59.0
-margin_top = 97.0
-margin_right = 283.0
-margin_bottom = 139.0
+margin_left = 86.0
+margin_top = 103.0
+margin_right = 310.0
+margin_bottom = 145.0
+rect_scale = Vector2( 1.44, 1.44 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Turbo Mode ?"
 
 [node name="yes_button" type="Button" parent="."]
-margin_left = 68.0
-margin_top = 228.0
-margin_right = 182.0
-margin_bottom = 259.0
-rect_scale = Vector2( 1.30887, 1.21386 )
+margin_left = 143.0
+margin_top = 338.0
+margin_right = 257.0
+margin_bottom = 369.0
+rect_scale = Vector2( 2.55966, 2.37386 )
 custom_colors/font_color = Color( 1, 0.976471, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
 text = "Oh Yeah"
 expand_icon = true
 
 [node name="no_button" type="Button" parent="."]
-margin_left = 276.0
-margin_top = 228.0
-margin_right = 390.0
-margin_bottom = 259.0
-rect_scale = Vector2( 1.30887, 1.21386 )
+margin_left = 597.0
+margin_top = 378.0
+margin_right = 711.0
+margin_bottom = 409.0
+rect_scale = Vector2( 1.05008, 0.973859 )
 custom_colors/font_color = Color( 1, 0.976471, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
 text = "No, thanks"

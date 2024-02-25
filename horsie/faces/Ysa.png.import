@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Isa.png-94eb519a80a0fb5d10c9e7dc099ad587.stex"
+path="res://.import/Ysa.png-880803ce43944b8f25c95492101946e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://horsie/faces/Isa.png"
-dest_files=[ "res://.import/Isa.png-94eb519a80a0fb5d10c9e7dc099ad587.stex" ]
+source_file="res://horsie/faces/Ysa.png"
+dest_files=[ "res://.import/Ysa.png-880803ce43944b8f25c95492101946e5.stex" ]
 
 [params]
 

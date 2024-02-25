@@ -6,6 +6,7 @@ var progress := {}
 var ranks := {}
 
 var horsie_scene = preload("res://horsie/horsie.tscn")
+var ultra_scene = preload("res://ultra/ultra.tscn")
 
 var colors := [
 	Color.red,
@@ -26,17 +27,18 @@ var colors := [
 
 
 func _ready():
-#	Engine.time_scale = 10
+	Engine.time_scale = 1
 	globals.is_race_finished = false
 	self.process_priority = +1  # to process this node after horsies
 
 	set_up_horsies()
+	set_up_ultras()
 
 	var tree := self.get_tree()
 #	tree.paused = true
 
 	var track: Path2D = $track
-	var horsies := $horsies.get_children()
+	var horsies := $objects/horsies.get_children()
 	for i in range(horsies.size()):
 		var horsie = horsies[i]
 		horsie.set_process(false)
@@ -58,14 +60,14 @@ func _ready():
 		for horsie in horsies:
 			var progress_pct = "%.02f" % (self.progress[horsie] * 100)
 			status.append("{0} #{1} {2}%".format([horsie.name, self.ranks[horsie], progress_pct]))
-		print(status.join(" | "))
+		# print(status.join(" | "))
 		yield(tree.create_timer(1), "timeout")
 
 
 func _process(delta):
 
 	# Update horsie progress.
-	var horsies := $horsies.get_children()
+	var horsies := $objects/horsies.get_children()
 	for horsie in horsies:
 		self.progress[horsie] = (self.laps[horsie] + horsie.follow.unit_offset) / self.n_laps
 
@@ -91,8 +93,9 @@ func _process(delta):
 	if not globals.is_race_finished:
 		var ranks := PoolStringArray()
 		var current_lap := 0
+		ranks.append("       STANDINGS")
 		for horsie in horsies:
-			ranks.append("[color=#{color}]{rank}. {name}[/color]".format({
+			ranks.append("   [color=#{color}]{rank}.   {name}[/color]".format({
 				color=horsie.tint.to_html(),
 				rank=self.ranks[horsie],
 				name=horsie.name
@@ -107,13 +110,41 @@ func _process(delta):
 			else:
 				$gui/laps.text = ""
 
+
+func set_up_ultras():
+	var ultras: Array
+	globals.get_names_from_photos(ultras, "res://horsie/other_faces/")
+	ultras = globals.eliminate_duplicates(ultras)
+	
+	var i = 0
+	for name in ultras:
+		var r = rand_range(-10, 10)
+		var new_ultra = ultra_scene.instance()
+		new_ultra.name = name
+		var face_texture = load("res://horsie/other_faces/" + str(name) + ".png")
+		new_ultra.set_face(face_texture)
+		$objects/ultras.add_child(new_ultra)
+		new_ultra.global_position.x += 26 * i + r 
+		i += 1
+		
+	for name in globals.not_racing:
+		var r = rand_range(20, 40)
+		var new_ultra = ultra_scene.instance()
+		new_ultra.name = name
+		var face_texture = load("res://horsie/faces/" + str(name) + ".png")
+		new_ultra.set_face(face_texture)
+		$objects/ultras.add_child(new_ultra)
+		new_ultra.global_position.x += 26 * i + r 
+		i += 1
+
+
 func set_up_horsies():
 	var i = 0
 	for name in globals.horsies:
 		var new_horsie = horsie_scene.instance()
 		new_horsie.name = name
 		new_horsie.tint = colors[i]
-		$horsies.add_child(new_horsie)
+		$objects/horsies.add_child(new_horsie)
 		i += 1
 
 func _horsies_order(h1, h2):
@@ -123,7 +154,7 @@ func _horsies_order(h1, h2):
 func _on_countdown_finished():
 	"""Called during the "countdown" animation when the clock reaches zero. This is done in the
 	middle of the animation because it continues after zero to fade out the label."""
-	for horsie in $horsies.get_children():
+	for horsie in $objects/horsies.get_children():
 		horsie.set_process(true)
 
 
@@ -193,7 +224,7 @@ func finish_race():
 
 
 func _on_turbo_timer_timeout():
-	var horsies := $horsies.get_children()
+	var horsies := $objects/horsies.get_children()
 	for h in horsies:
 		h.in_turbo = false
 

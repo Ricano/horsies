@@ -5,6 +5,7 @@ var rng := RandomNumberGenerator.new()
 var turbo_mode
 
 var horsies := []
+var not_racing := []
 
 var number_of_laps : int
 
@@ -44,3 +45,27 @@ func file_load(path):
 	var content = file.get_as_text()
 	file.close()
 	return content
+
+
+func get_names_from_photos(names_array, folder):
+	var folder_path = folder
+	var dir = Directory.new()
+	if dir.open(folder_path) == OK:
+		dir.list_dir_begin(true,true)
+		var file_name = dir.get_next()
+		while file_name != "":
+			names_array.append(file_name.split(".")[0])
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		print("Failed to open directory:", folder_path)
+
+
+
+
+func eliminate_duplicates(array: Array) -> Array:
+	var unique := []
+	for item in array:
+		if not unique.has(item):
+			unique.append(item)
+	return unique

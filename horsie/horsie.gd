@@ -61,6 +61,10 @@ func setup(track: Path2D, lane: int):
 	self.follow.v_offset = lane * 2
 
 func add_face():
+	# TODO
+	if self.name == "Rei":
+		return
+	
 	var face_texture = load("res://horsie/faces/" + str(self.name) + ".png")
 	$sprite/face.texture = face_texture
 	if self.name == "Fátima": # her face is quite long...
