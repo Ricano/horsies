@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://terrain/track-curve.png" type="Texture" id=1]
 [ext_resource path="res://terrain/track-straight.png" type="Texture" id=2]
@@ -25,6 +25,11 @@
 [ext_resource path="res://music/William Tell Overture Finale.ogg" type="AudioStream" id=23]
 [ext_resource path="res://ultras.png" type="Texture" id=24]
 [ext_resource path="res://stands.png" type="Texture" id=25]
+[ext_resource path="res://cap_traseiros.png" type="Texture" id=26]
+[ext_resource path="res://crowd.wav" type="AudioStream" id=27]
+[ext_resource path="res://ultra/drum.png" type="Texture" id=28]
+[ext_resource path="res://ultra/drummer.gd" type="Script" id=29]
+[ext_resource path="res://ultra/ultra.tscn" type="PackedScene" id=30]
 
 [sub_resource type="Animation" id=1]
 resource_name = "countdown"
@@ -125,6 +130,14 @@ tracks/0/keys = {
 2/shape_one_way_margin = 0.0
 2/shapes = [  ]
 2/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 159.792, 24.1667 )
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 103.333, -179.167, 0, 0, 0, 0, 104.167, -37.5, 0, 0, 0, 0, 139.167, -37.5, 0, 0, 0, 0, 140, -49.1667 )
+}
 
 [node name="world" type="YSort"]
 position = Vector2( 112, 72 )
@@ -293,6 +306,11 @@ position = Vector2( 573.333, 260 )
 scale = Vector2( 0.323232, 0.358333 )
 texture = ExtResource( 4 )
 offset = Vector2( -165, -192 )
+
+[node name="cap_traseiros" type="Sprite" parent="objects/anuncie_qui"]
+position = Vector2( -260.39, -211.628 )
+scale = Vector2( 0.675, 0.622093 )
+texture = ExtResource( 26 )
 
 [node name="foliageTree_green2" type="Sprite" parent="objects"]
 position = Vector2( 118, 277 )
@@ -1052,11 +1070,9 @@ offset = Vector2( -32, -100 )
 
 [node name="ultras" type="Node2D" parent="objects"]
 position = Vector2( 186.667, -38.3334 )
-scale = Vector2( 1, 1 )
 z_index = 1
 
 [node name="horsies" type="YSort" parent="objects"]
-scale = Vector2( 1, 1 )
 
 [node name="ultras_sign" type="Sprite" parent="objects"]
 position = Vector2( 289.038, -5.08337 )
@@ -1092,4 +1108,34 @@ visible = false
 wait_time = 1.618
 one_shot = true
 
+[node name="crowd_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="crowd_area"]
+position = Vector2( 250.208, 40.8333 )
+shape = SubResource( 4 )
+
+[node name="crowd_sound" type="AudioStreamPlayer2D" parent="crowd_area"]
+stream = ExtResource( 27 )
+volume_db = -7.0
+
+[node name="drummer_path" type="Path2D" parent="crowd_area"]
+curve = SubResource( 5 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="crowd_area/drummer_path"]
+position = Vector2( 103.333, -179.167 )
+rotation = 1.54196
+rotate = false
+loop = false
+
+[node name="drummer" parent="crowd_area/drummer_path/PathFollow2D" instance=ExtResource( 30 )]
+rotation = -1.5708
+script = ExtResource( 29 )
+
+[node name="drum" type="Sprite" parent="crowd_area/drummer_path/PathFollow2D/drummer"]
+position = Vector2( 61.2576, 66.0581 )
+scale = Vector2( 1.63201, 1.52722 )
+texture = ExtResource( 28 )
+
 [connection signal="timeout" from="turbo_timer" to="." method="_on_turbo_timer_timeout"]
+[connection signal="area_entered" from="crowd_area" to="." method="_on_crowd_area_area_entered"]
+[connection signal="area_exited" from="crowd_area" to="." method="_on_crowd_area_area_exited"]

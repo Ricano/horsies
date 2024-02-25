@@ -8,6 +8,7 @@ var ranks := {}
 var horsie_scene = preload("res://horsie/horsie.tscn")
 var ultra_scene = preload("res://ultra/ultra.tscn")
 
+
 var colors := [
 	Color.red,
 	Color.royalblue,
@@ -109,7 +110,7 @@ func _process(delta):
 				$gui/laps.text = "Lap {0} of {1}".format([current_lap, self.n_laps])
 			else:
 				$gui/laps.text = ""
-
+	
 
 func set_up_ultras():
 	var ultras: Array
@@ -126,7 +127,8 @@ func set_up_ultras():
 		$objects/ultras.add_child(new_ultra)
 		new_ultra.global_position.x += 26 * i + r 
 		i += 1
-		
+	i-=1
+	globals.not_racing.shuffle()
 	for name in globals.not_racing:
 		var r = rand_range(20, 40)
 		var new_ultra = ultra_scene.instance()
@@ -156,6 +158,7 @@ func _on_countdown_finished():
 	middle of the animation because it continues after zero to fade out the label."""
 	for horsie in $objects/horsies.get_children():
 		horsie.set_process(true)
+		$crowd_area/crowd_sound.play()
 
 
 func _on_lap_completed(horsie):
@@ -232,3 +235,19 @@ func _on_turbo_timer_timeout():
 func save_winner(winner):
 	globals.file_save(globals.WINNERS_FILE, Time.get_date_string_from_system() + " " + str(winner.name))
 	
+
+
+
+
+func _on_crowd_area_area_entered(area):
+	if area.get_parent().get_parent().name == "horsies":
+		$crowd_area/crowd_sound.volume_db = 0
+		for u in $objects/ultras.get_children():
+			u.animation.playback_speed = 1.5
+
+
+func _on_crowd_area_area_exited(area):
+	if area.get_parent().get_parent().name == "horsies": 
+		$crowd_area/crowd_sound.volume_db = -7
+		for u in $objects/ultras.get_children():
+			u.animation.playback_speed = 1

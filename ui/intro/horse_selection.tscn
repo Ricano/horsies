@@ -134,7 +134,7 @@ margin_bottom = 560.714
 rect_scale = Vector2( 0.549016, 1.62629 )
 custom_colors/font_color = Color( 0.968627, 1, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "toggle wieners"
+text = "toggle winners"
 expand_icon = true
 
 [node name="past_winners" type="Sprite" parent="."]
