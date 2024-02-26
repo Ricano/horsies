@@ -268,7 +268,7 @@ func save_winner(winner):
 func _on_crowd_area_area_entered(area):
 	if area.get_parent().get_parent().name == "horsies":
 		var tween = Tween.new()
-		add_child(tween)
+		call_deferred("add_child", tween)
 		tween.interpolate_property($crowd_area/crowd_sound, "volume_db", -7, 0, 1, Tween.TRANS_QUAD, Tween.EASE_IN)
 		tween.start()
 
@@ -280,7 +280,7 @@ func _on_crowd_area_area_entered(area):
 func _on_crowd_area_area_exited(area):
 	if area.get_parent().get_parent().name == "horsies": 
 		var tween = Tween.new()
-		add_child(tween)
+		call_deferred("add_child", tween)
 		tween.interpolate_property($crowd_area/crowd_sound, "volume_db", 0, -7, 1, Tween.TRANS_QUAD, Tween.EASE_IN)
 		tween.start()
 		for u in $objects/ultras.get_children():

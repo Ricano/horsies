@@ -1162,7 +1162,6 @@ rotation = -1.5708
 script = ExtResource( 29 )
 
 [node name="black_screen" type="Sprite" parent="."]
-visible = false
 position = Vector2( 240.167, 130.322 )
 scale = Vector2( 1.08573, 1.10306 )
 z_index = 1000
