@@ -144,8 +144,8 @@ func toggle_past_winners_participation(past_winners):
 
 func get_past_winners_without_duplicates():
 	var win_info = get_last_winnners_info()
-	var names = get_winners_name(win_info)
-	return names
+	var n = get_winners_name(win_info)
+	return n
 
 
 func get_winners_name(win_info):
@@ -155,22 +155,22 @@ func get_winners_name(win_info):
 		if (char_code==ord(" ") or char_code >= ord("a") and char_code <= ord("z")) or (char_code >= ord("A") and char_code <= ord("Z")) or (char_code >= ord("à") and char_code <= ord("ÿ")):
 			chars.append(c)
 	
-	var names = globals.eliminate_duplicates(get_names(chars))
-	return names
+	var unique_names = globals.eliminate_duplicates(get_names(chars))
+	return unique_names
 
 
 func get_names(input_array):
-	var names = []
+	var result = []
 	var current_name = ""
 	for c in input_array:
 		if c == " ":
 			if current_name != "":
-				names.append(current_name)
+				result.append(current_name)
 				current_name = ""
 		else:
 			current_name += c
 	if current_name != "":
-		names.append(current_name)
-	return names
+		result.append(current_name)
+	return result
 
 

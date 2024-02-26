@@ -6,6 +6,8 @@ onready var horn = $torso/arm_left/horn
 
 onready var animations = animation.get_animation_list()
 
+var sound_time_delay : float
+
 func _ready():
 	animations.remove(animations.find("drum"))
 	animations.remove(animations.find("walk_loop"))
@@ -40,9 +42,11 @@ func handle_animation(anim):
 		$color_particle.visible=false
 		
 	if anim == "horn":
-		horn.visible = true
 		horn.get_child(0).pitch_scale += randf()*0.1
 		horn.get_child(0).play()
+		sound_time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+		yield(get_tree().create_timer(sound_time_delay), "timeout")
+		horn.visible = true
 	else:
 		horn.visible = false
 	

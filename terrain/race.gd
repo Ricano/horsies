@@ -1,5 +1,9 @@
 extends Node
 
+onready var black_screen = $black_screen
+
+var sound_time_delay: float
+
 var n_laps := globals.number_of_laps
 var laps := {}
 var progress := {}
@@ -28,9 +32,30 @@ var colors := [
 
 
 func _ready():
+	
+
+	
 	Engine.time_scale = 1
+	
+	if globals.turbo_mode:
+		$utils/turbo_music.play()
+		$crowd_area/crowd_sound.play()
+		
+	else:
+		$utils/music.play()
+
+	sound_time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	yield(get_tree().create_timer(sound_time_delay), "timeout")
+	
+	var tween = Tween.new()
+	add_child(tween)
+	tween.interpolate_property(black_screen, "global_position", black_screen.global_position, black_screen.global_position + Vector2(0,-1000), 1, Tween.TRANS_QUAD, Tween.EASE_IN)
+	tween.start()
+	
 	globals.is_race_finished = false
 	self.process_priority = +1  # to process this node after horsies
+
+
 
 	set_up_horsies()
 	set_up_ultras()
@@ -50,10 +75,6 @@ func _ready():
 		self.ranks[horsie] = 1
 
 	$gui/anim.play("countdown")
-	if globals.turbo_mode:
-		$utils/turbo_music.play()
-	else:
-		$utils/music.play()
 
 	# Display status line every second.
 	while true:
@@ -138,6 +159,7 @@ func set_up_ultras():
 		$objects/ultras.add_child(new_ultra)
 		new_ultra.global_position.x += 26 * i + r 
 		i += 1
+	
 
 
 func set_up_horsies():
@@ -156,10 +178,13 @@ func _horsies_order(h1, h2):
 func _on_countdown_finished():
 	"""Called during the "countdown" animation when the clock reaches zero. This is done in the
 	middle of the animation because it continues after zero to fade out the label."""
+	$race_shot.play()
+	sound_time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	yield(get_tree().create_timer(sound_time_delay), "timeout")
+	
 	for horsie in $objects/horsies.get_children():
 		horsie.set_process(true)
-		$crowd_area/crowd_sound.play()
-
+	
 
 func _on_lap_completed(horsie):
 	self.laps[horsie] += 1
@@ -239,15 +264,24 @@ func save_winner(winner):
 
 
 
+
 func _on_crowd_area_area_entered(area):
 	if area.get_parent().get_parent().name == "horsies":
-		$crowd_area/crowd_sound.volume_db = 0
+		var tween = Tween.new()
+		add_child(tween)
+		tween.interpolate_property($crowd_area/crowd_sound, "volume_db", -7, 0, 1, Tween.TRANS_QUAD, Tween.EASE_IN)
+		tween.start()
+
+
 		for u in $objects/ultras.get_children():
-			u.animation.playback_speed = 1.5
+			u.animation.playback_speed = 1.8
 
 
 func _on_crowd_area_area_exited(area):
 	if area.get_parent().get_parent().name == "horsies": 
-		$crowd_area/crowd_sound.volume_db = -7
+		var tween = Tween.new()
+		add_child(tween)
+		tween.interpolate_property($crowd_area/crowd_sound, "volume_db", 0, -7, 1, Tween.TRANS_QUAD, Tween.EASE_IN)
+		tween.start()
 		for u in $objects/ultras.get_children():
 			u.animation.playback_speed = 1

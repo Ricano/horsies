@@ -2,6 +2,7 @@ extends Node2D
 
 
 func _ready():
+	$drum.visible = true
 	$torso/arm_left/stick.visible=true
 	$color_particle.visible = false
 	$torso/arm_left/flare.visible=false
@@ -13,7 +14,7 @@ func _ready():
 	
 	
 func _process(delta):
-	get_parent().offset+=delta*13.7
+	get_parent().offset+=delta*12
 	if get_parent().unit_offset == 1:
 		$AnimationPlayer.play("drum")
 		

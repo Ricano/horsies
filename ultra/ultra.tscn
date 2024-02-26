@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://ultra/ultra.gd" type="Script" id=1]
 [ext_resource path="res://ultra/flare.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://ultra/horn_on.png" type="Texture" id=7]
 [ext_resource path="res://ultra/horn.wav" type="AudioStream" id=8]
 [ext_resource path="res://ultra/stick.png" type="Texture" id=9]
+[ext_resource path="res://ultra/drum.png" type="Texture" id=10]
 
 [sub_resource type="Curve" id=22]
 min_value = -200.0
@@ -286,6 +287,18 @@ tracks/19/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("drum:scale")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1.732, 1.627 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -732,6 +745,18 @@ tracks/11/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -23.6984 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("drum:scale")
+tracks/12/interp = 0
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.6, 1.5 ), Vector2( 1.65, 1.55 ), Vector2( 1.6, 1.5 ), Vector2( 1.65, 1.55 ) ]
 }
 
 [sub_resource type="Animation" id=20]
@@ -1623,5 +1648,11 @@ anims/horn = SubResource( 25 )
 anims/jump = SubResource( 4 )
 anims/walk = SubResource( 5 )
 anims/walk_loop = SubResource( 27 )
+
+[node name="drum" type="Sprite" parent="."]
+visible = false
+position = Vector2( 64.2879, 63.0278 )
+scale = Vector2( 1.732, 1.627 )
+texture = ExtResource( 10 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
