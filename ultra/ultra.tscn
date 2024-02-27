@@ -599,7 +599,7 @@ tracks/11/keys = {
 
 [sub_resource type="Animation" id=26]
 resource_name = "drum"
-length = 0.78
+length = 0.79
 loop = true
 step = 0.01
 tracks/0/type = "value"
@@ -609,7 +609,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.38, 0.78 ),
+"times": PoolRealArray( 0.38, 0.79 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( -3.0303, -12.1212 ), Vector2( 6.06061, -12.1212 ) ]
@@ -621,7 +621,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.38, 0.78 ),
+"times": PoolRealArray( 0.38, 0.79 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ -1.20623, 16.6806 ]
@@ -633,7 +633,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 32 ), Vector2( 0, 32 ), Vector2( 0, 32 ), Vector2( 0, 32 ) ]
@@ -645,7 +645,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ -140.528, -307.808, -140.528, -307.808 ]
@@ -657,7 +657,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 80 ), Vector2( 0, 80 ), Vector2( 0, 80 ), Vector2( 0, 80 ) ]
@@ -669,7 +669,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ -178.106, -178.106, -178.106, -178.106 ]
@@ -681,7 +681,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.38, 0.78 ),
+"times": PoolRealArray( 0.38, 0.79 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 80 ), Vector2( 0, 80 ) ]
@@ -693,7 +693,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.38, 0.78 ),
+"times": PoolRealArray( 0.38, 0.79 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 66.4894, 21.8251 ]
@@ -705,7 +705,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
@@ -717,7 +717,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.0, 0.0, 0.0 ]
@@ -753,7 +753,7 @@ tracks/12/loop_wrap = true
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
-"times": PoolRealArray( 0.19, 0.38, 0.59, 0.78 ),
+"times": PoolRealArray( 0.19, 0.38, 0.59, 0.79 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1.6, 1.5 ), Vector2( 1.65, 1.55 ), Vector2( 1.6, 1.5 ), Vector2( 1.65, 1.55 ) ]
@@ -889,10 +889,10 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.4, 6.5, 7.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.6, 2.2, 2.8, 3.5, 4.2, 4.8, 5.4, 6, 6.7, 7.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 0, -8 ) ]
+"values": [ Vector2( 0, -8 ), Vector2( 0, -8 ), Vector2( 6.40995, -5.80312 ), Vector2( -2.62812, -4.8244 ), Vector2( 6.40995, -5.80312 ), Vector2( -2.62812, -4.8244 ), Vector2( 6.40995, -5.80312 ), Vector2( -2.62812, -4.8244 ), Vector2( 6.40995, -5.80312 ), Vector2( -2.62812, -4.8244 ), Vector2( 6.40995, -5.80312 ), Vector2( -2.62812, -4.8244 ), Vector2( 6.40995, -5.80312 ) ]
 }
 tracks/11/type = "value"
 tracks/11/path = NodePath("torso/face:rotation_degrees")
@@ -901,10 +901,10 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.4, 6.5, 7.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.6, 2.2, 2.8, 3.5, 4.2, 4.8, 5.4, 6, 6.7, 7.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -7.00714, 3.74772, -9.5997, 13.1781, 0.0, 4.17875, 0.0, -4.28438 ]
+"values": [ 0.0, 0.787102, 11.8783, -9.46909, 11.8783, -9.46909, 11.8783, -9.46909, 11.8783, -9.46909, 11.8783, -9.46909, 11.8783 ]
 }
 
 [sub_resource type="Animation" id=25]
@@ -1558,7 +1558,6 @@ script = ExtResource( 1 )
 modulate = Color( 0, 1, 0.0117647, 0.282353 )
 position = Vector2( -51.5151, 54.5455 )
 scale = Vector2( 0.6, 0.6 )
-z_index = 2
 amount = 30
 lifetime = 2.0
 preprocess = 10.0

@@ -39,7 +39,7 @@ func _ready():
 	
 	if globals.turbo_mode:
 		$utils/turbo_music.play()
-		$crowd_area/crowd_sound.play()
+		$crowd/crowd_sound.play()
 		
 	else:
 		$utils/music.play()
@@ -261,27 +261,3 @@ func save_winner(winner):
 	globals.file_save(globals.WINNERS_FILE, Time.get_date_string_from_system() + " " + str(winner.name))
 	
 
-
-
-
-
-func _on_crowd_area_area_entered(area):
-	if area.get_parent().get_parent().name == "horsies":
-		var tween = Tween.new()
-		call_deferred("add_child", tween)
-		tween.interpolate_property($crowd_area/crowd_sound, "volume_db", -7, 0, 1, Tween.TRANS_QUAD, Tween.EASE_IN)
-		tween.start()
-
-
-		for u in $objects/ultras.get_children():
-			u.animation.playback_speed = 1.8
-
-
-func _on_crowd_area_area_exited(area):
-	if area.get_parent().get_parent().name == "horsies": 
-		var tween = Tween.new()
-		call_deferred("add_child", tween)
-		tween.interpolate_property($crowd_area/crowd_sound, "volume_db", 0, -7, 1, Tween.TRANS_QUAD, Tween.EASE_IN)
-		tween.start()
-		for u in $objects/ultras.get_children():
-			u.animation.playback_speed = 1
