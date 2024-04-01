@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://horsie/horsie.gd" type="Script" id=1]
 [ext_resource path="res://horsie/horsie_bw.png" type="Texture" id=2]
@@ -13,9 +13,65 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.0
 
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4.76837e-07 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "ready"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4.76837e-07 ), Vector2( 0, -4.76837e-07 ), Vector2( 2, -4.76837e-07 ), Vector2( 4, -1 ), Vector2( 2, -5.96046e-08 ), Vector2( 0, -4.76837e-07 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, -22.3021, -11.151, 0.0, 0.0 ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "run"
-length = 0.5
+length = 0.55
 loop = true
 step = 0.05
 tracks/0/type = "value"
@@ -25,10 +81,64 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.35 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -15.0, 15.0 ]
+"values": [ 0.0, -15.0, 1.90735e-06, 15.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4.76837e-07 ), Vector2( 0, -4.76837e-07 ), Vector2( 0, -1 ), Vector2( 0, -4.76837e-07 ), Vector2( 0, -4.76837e-07 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "stun"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -4.76837e-07 ), Vector2( 0, -4.76837e-07 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2160.0, 0.0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop_process"
+} ]
 }
 
 [sub_resource type="Gradient" id=3]
@@ -84,6 +194,9 @@ animations = [ {
 
 [node name="horsie" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 7.0 ]
+}
 
 [node name="sprite" type="Sprite" parent="."]
 position = Vector2( 0, -4.76837e-07 )
@@ -113,8 +226,10 @@ monitoring = false
 shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
-autoplay = "run"
+anims/RESET = SubResource( 12 )
+anims/ready = SubResource( 13 )
 anims/run = SubResource( 2 )
+anims/stun = SubResource( 14 )
 
 [node name="smoke" type="Particles2D" parent="."]
 modulate = Color( 0.435294, 0.392157, 0.392157, 1 )
@@ -155,10 +270,11 @@ position = Vector2( -17, -1 )
 rotation = -1.39626
 scale = Vector2( 0.05, 0.1 )
 frames = SubResource( 11 )
-frame = 1
 playing = true
 
 [node name="turbo_start_timer" type="Timer" parent="."]
 wait_time = 15.0
 one_shot = true
 autostart = true
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

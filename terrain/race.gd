@@ -33,8 +33,6 @@ var colors := [
 
 func _ready():
 	
-
-	
 	Engine.time_scale = 1
 	
 	if globals.turbo_mode:
@@ -184,6 +182,7 @@ func _on_countdown_finished():
 	
 	for horsie in $objects/horsies.get_children():
 		horsie.set_process(true)
+		horsie.anim.play("run")
 	
 
 func _on_lap_completed(horsie):

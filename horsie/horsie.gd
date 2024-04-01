@@ -23,14 +23,13 @@ onready var follow: PathFollow2D = $follow
 onready var anim = $anim
 
 
-
 var sound_time_delay : float
 
 
 
-
-
 func _ready():
+	yield(get_tree().create_timer(randf()), "timeout")
+	anim.play("ready")
 	if globals.turbo_mode:
 		add_face()
 		pump_the_horsie()
@@ -41,18 +40,18 @@ func _ready():
 # TODO add turbo speed
 
 func _process(delta: float):
-	var previous_unit_offset := self.follow.unit_offset
-	var ketchup := 0.1 * (1.0 - 1.0 / self.rank)
-	var dspeed := (globals.rng.randf_range(-horsie_speed_variation, horsie_speed_variation) + ketchup*horsie_ketchup_multiplier) * self.acceleration * delta
-	self.speed = clamp(self.speed + dspeed, MIN_SPEED, MAX_SPEED)
-	if can_go_turbo():
-		speed*=TURBO_MULTIPLIER
-	if not in_turbo:
-		$turbo_flames.hide()
-	self.follow.offset += self.speed * delta
-	if self.follow.unit_offset < previous_unit_offset and not globals.is_race_finished:
-		self.emit_signal("lap_completed")
-	anim.playback_speed = self.speed/MAX_SPEED
+		var previous_unit_offset := self.follow.unit_offset
+		var ketchup := 0.1 * (1.0 - 1.0 / self.rank)
+		var dspeed := (globals.rng.randf_range(-horsie_speed_variation, horsie_speed_variation) + ketchup*horsie_ketchup_multiplier) * self.acceleration * delta
+		self.speed = clamp(self.speed + dspeed, MIN_SPEED, MAX_SPEED)
+		if can_go_turbo():
+			speed*=TURBO_MULTIPLIER
+		if not in_turbo:
+			$turbo_flames.hide()
+		self.follow.offset += self.speed * delta
+		if self.follow.unit_offset < previous_unit_offset and not globals.is_race_finished:
+			self.emit_signal("lap_completed")
+		anim.playback_speed = self.speed/MAX_SPEED
 
 func setup(track: Path2D, lane: int):
 	print("Setting up horsie {0} on lane {1}".format([self.get_path(), lane]))
@@ -61,13 +60,12 @@ func setup(track: Path2D, lane: int):
 	self.follow.v_offset = lane * 2
 
 func add_face():
-	# TODO
 	if self.name == "Rei":
 		return
 	
 	var face_texture = load("res://horsie/faces/" + str(self.name) + ".png")
 	$sprite/face.texture = face_texture
-	if self.name == "Fátima": # her face is quite long...
+	if self.name == "Fátima": # her face is quite long :)
 		$sprite/face.offset = Vector2(4, -48)
 
 func pump_the_horsie():
@@ -94,3 +92,12 @@ func can_go_turbo():
 	
 
 
+
+func stop_process():
+	set_process(false)
+
+
+func _on_anim_animation_finished(anim_name):
+	if anim_name == "stun":
+		anim.play("run")
+		set_process(true)

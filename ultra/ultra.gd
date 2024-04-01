@@ -9,8 +9,12 @@ onready var animations = animation.get_animation_list()
 var sound_time_delay : float
 
 func _ready():
+	
+	#drummer only animations
 	animations.remove(animations.find("drum"))
 	animations.remove(animations.find("walk_loop"))
+	animations.remove(animations.find("hit_the_horsie"))
+	animations.remove(animations.find("return_to_stands"))
 	randomize()
 	if randf() < 0.25:
 		scale.x = -scale.x
@@ -49,8 +53,11 @@ func handle_animation(anim):
 		horn.visible = true
 	else:
 		horn.visible = false
+	$torso/arm_left/hammer.visible=false
 	
-
+	
+func kapow():
+	pass
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	change_animation()
