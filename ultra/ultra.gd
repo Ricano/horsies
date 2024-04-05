@@ -13,6 +13,7 @@ func _ready():
 	#drummer only animations
 	animations.remove(animations.find("drum"))
 	animations.remove(animations.find("walk_loop"))
+	animations.remove(animations.find("go_to_hit"))
 	animations.remove(animations.find("hit_the_horsie"))
 	animations.remove(animations.find("return_to_stands"))
 	randomize()
@@ -21,7 +22,7 @@ func _ready():
 
 	change_animation()
 
-	
+
 	
 func set_face(texture):
 	$torso/face.texture = texture

@@ -1,6 +1,8 @@
 extends Node2D
 
 var horsie_to_hit: Node2D
+var horsie_to_hit_list:= []
+
 var hitted_horsie_stun_time:= 3
 
 func _ready():
@@ -25,14 +27,39 @@ func _process(delta):
 
 func _on_drummer_action_area_area_entered(area):
 	var horsie = area.get_parent()
-	if not horsie_to_hit and not horsie.in_turbo:
-		horsie_to_hit = horsie
-		hit_horsie(horsie)
+	var racing_horsies_number = len(globals.horsies)
+	
+	var x = int(racing_horsies_number/3.0)+1
+	
+	printerr(racing_horsies_number, ">>", x)
+	if len(horsie_to_hit_list) < x:
+		horsie_to_hit_list.append(horsie)
+		printerr(horsie, "has been added to hit_list")
 		
+	else:
+		if not horsie_to_hit:
+			horsie_to_hit_list.shuffle()
+			printerr("Shuffled list:", horsie_to_hit_list)
+			for h in horsie_to_hit_list:
+				if not horsie.in_turbo:
+					horsie_to_hit = horsie_to_hit_list[0]
+					printerr("Horsie to hit:", horsie_to_hit.name)
+					$AnimationPlayer.play("go_to_hit")
+					break
+
+
+func _on_hit_area_area_entered(area):
+	if area.get_parent() == horsie_to_hit:
+		$AnimationPlayer.stop()
+		hit_horsie(horsie_to_hit)
+
 
 func hit_horsie(horsie: Node2D):
-	horsie_to_hit = horsie
+	$torso/arm_left/hammer/AudioStreamPlayer2D.play()
+	var sound_time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	yield(get_tree().create_timer(sound_time_delay*2/3), "timeout")
 	$AnimationPlayer.play("hit_the_horsie")
+
 
 
 	
@@ -42,8 +69,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "return_to_stands":
 		$AnimationPlayer.play("drum")
 	
-	
+
 func kapow():
-	horsie_to_hit.anim.play("stun")
+	horsie_to_hit.get_stunned()
 	yield(get_tree().create_timer(hitted_horsie_stun_time), "timeout")
+	horsie_to_hit_list.clear()
+	printerr("Hit list was cleared.")
 	horsie_to_hit = null
+	printerr("Horsie to hit is None")
+	
