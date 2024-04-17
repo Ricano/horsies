@@ -21,7 +21,6 @@ func _ready():
 
 
 func _unhandled_input(event: InputEvent):
-#    print(event.as_text())
 	if event.is_action_pressed("ui_accept"):
 		var tree := self.get_tree()
 		tree.paused = not tree.paused
@@ -58,7 +57,7 @@ func get_names_from_photos(names_array, folder):
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	else:
-		print("Failed to open directory:", folder_path)
+		printerr("Failed to open directory:", folder_path)
 
 
 

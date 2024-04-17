@@ -1,6 +1,6 @@
 extends Node
 
-onready var black_screen = $black_screen
+onready var black_screen = $gui/black_screen
 
 var sound_time_delay: float
 
@@ -59,7 +59,6 @@ func _ready():
 	set_up_ultras()
 
 	var tree := self.get_tree()
-#	tree.paused = true
 
 	var track: Path2D = $track
 	var horsies := $objects/horsies.get_children()
@@ -80,7 +79,6 @@ func _ready():
 		for horsie in horsies:
 			var progress_pct = "%.02f" % (self.progress[horsie] * 100)
 			status.append("{0} #{1} {2}%".format([horsie.name, self.ranks[horsie], progress_pct]))
-		# print(status.join(" | "))
 		yield(tree.create_timer(1), "timeout")
 
 

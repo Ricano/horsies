@@ -255,6 +255,13 @@ margin_right = 152.0
 margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.352941 )
 
+[node name="black_screen" type="Sprite" parent="gui"]
+position = Vector2( 400.2, 228.386 )
+scale = Vector2( 1.30288, 1.32367 )
+z_index = 1000
+z_as_relative = false
+texture = ExtResource( 28 )
+
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2( 240, 126.667 )
 current = true
@@ -1175,13 +1182,6 @@ visible = false
 [node name="turbo_timer" type="Timer" parent="."]
 wait_time = 1.618
 one_shot = true
-
-[node name="black_screen" type="Sprite" parent="."]
-visible = false
-position = Vector2( 240.167, 130.322 )
-scale = Vector2( 1.08573, 1.10306 )
-z_index = 1000
-texture = ExtResource( 28 )
 
 [node name="race_shot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 31 )

@@ -31,19 +31,15 @@ func _on_drummer_action_area_area_entered(area):
 	
 	var x = int(racing_horsies_number/3.0)+1
 	
-	printerr(racing_horsies_number, ">>", x)
 	if len(horsie_to_hit_list) < x:
 		horsie_to_hit_list.append(horsie)
-		printerr(horsie, "has been added to hit_list")
 		
 	else:
 		if not horsie_to_hit:
 			horsie_to_hit_list.shuffle()
-			printerr("Shuffled list:", horsie_to_hit_list)
 			for h in horsie_to_hit_list:
 				if not horsie.in_turbo:
 					horsie_to_hit = horsie_to_hit_list[0]
-					printerr("Horsie to hit:", horsie_to_hit.name)
 					$AnimationPlayer.play("go_to_hit")
 					break
 
@@ -74,7 +70,5 @@ func kapow():
 	horsie_to_hit.get_stunned()
 	yield(get_tree().create_timer(hitted_horsie_stun_time), "timeout")
 	horsie_to_hit_list.clear()
-	printerr("Hit list was cleared.")
 	horsie_to_hit = null
-	printerr("Horsie to hit is None")
 	

@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Control",
-"class": "ColorSwatch",
-"language": "GDScript",
-"path": "res://ui/color-picker/color-swatch.gd"
-} ]
-_global_script_class_icons={
-"ColorSwatch": ""
-}
-
 [application]
 
 config/name="horsies"
