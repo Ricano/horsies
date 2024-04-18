@@ -2,12 +2,15 @@ extends Node
 
 onready var black_screen = $gui/black_screen
 
+onready var camera = $camera
+
 var sound_time_delay: float
 
 var n_laps := globals.number_of_laps
 var laps := {}
 var progress := {}
 var ranks := {}
+var race_winner: Horsie
 
 var horsie_scene = preload("res://horsie/horsie.tscn")
 var ultra_scene = preload("res://ultra/ultra.tscn")
@@ -127,7 +130,7 @@ func _process(delta):
 				$gui/laps.text = "Lap {0} of {1}".format([current_lap, self.n_laps])
 			else:
 				$gui/laps.text = ""
-	
+
 
 func set_up_ultras():
 	var ultras: Array
@@ -155,7 +158,6 @@ func set_up_ultras():
 		$objects/ultras.add_child(new_ultra)
 		new_ultra.global_position.x += 26 * i + r 
 		i += 1
-	
 
 
 func set_up_horsies():
@@ -166,6 +168,7 @@ func set_up_horsies():
 		new_horsie.tint = colors[i]
 		$objects/horsies.add_child(new_horsie)
 		i += 1
+
 
 func _horsies_order(h1, h2):
 	return self.progress[h1] >= self.progress[h2]
@@ -181,71 +184,68 @@ func _on_countdown_finished():
 	for horsie in $objects/horsies.get_children():
 		horsie.set_process(true)
 		horsie.anim.play("run")
-	
+
 
 func _on_lap_completed(horsie):
 	self.laps[horsie] += 1
 	if self.laps[horsie] >= self.n_laps:
 		self.call_deferred("finish_race")
 
+func praise_winner():
+		race_winner.z_index = 10 # bring winner to the foreground
+
+		var camera_pos = camera.global_position
+		remove_child(camera)
+		race_winner.add_child(camera)
+		camera.global_position = camera_pos
+
+		Engine.time_scale = 0.05
+
+		var tween: Tween = $utils/tween
+		tween.interpolate_property(
+			camera, "zoom", camera.zoom, Vector2(0.25, 0.25),
+			0.25, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
+		)
+		tween.interpolate_property(
+			camera, "position", camera.position, Vector2.ZERO,
+			0.25, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
+		)
+
+		var music: AudioStreamPlayer = $utils/music
+		tween.interpolate_property(
+			music, "pitch_scale", music.pitch_scale, music.pitch_scale-0.5,
+			2.5, Tween.TRANS_LINEAR
+		)
+		tween.interpolate_property(
+			music, "volume_db", music.volume_db, music.volume_db-20,
+			2.5, Tween.TRANS_LINEAR
+		)
+
+		var winner_label: RichTextLabel = $gui/winner
+		var text := (
+			"[center][shake rate=50 level=30][rainbow]Congratulations[/rainbow]\n"
+			+ "[color=#{color}]{name}[/color][/shake][/center]"
+		).format({color=race_winner.tint.to_html(), name=race_winner.name})
+		winner_label.bbcode_text = text
+		winner_label.visible_characters = 0
+		tween.interpolate_property(
+			winner_label, "visible_characters", 0, text.length(),
+			0.01 * text.length(), Tween.TRANS_LINEAR
+		)
+		tween.start()
 
 func finish_race():
-	globals.is_race_finished = true
+	if not race_winner:
+		globals.is_race_finished = true
 
-	var camera := $camera as Camera2D
-	if not camera:
-		return
-
-	var rank1_horsies := []
-	for horsie in self.ranks:
-		var rank = self.ranks[horsie]
-		if rank == 1:
-			rank1_horsies.append(horsie)
-	assert(rank1_horsies.size() > 0)
-	var winner = rank1_horsies[globals.rng.randi() % rank1_horsies.size()]
-	if globals.is_official_race:
-		save_winner(winner)
-	winner.z_index = 10 # bring winner to the foreground
-
-	var camera_pos := camera.global_position
-	self.remove_child(camera)
-	winner.add_child(camera)
-	camera.global_position = camera_pos
-
-	Engine.time_scale = 0.05
-
-	var tween: Tween = $utils/tween
-	tween.interpolate_property(
-		camera, "zoom", camera.zoom, Vector2(0.25, 0.25),
-		0.25, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
-	)
-	tween.interpolate_property(
-		camera, "position", camera.position, Vector2.ZERO,
-		0.25, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
-	)
-
-	var music: AudioStreamPlayer = $utils/music
-	tween.interpolate_property(
-		music, "pitch_scale", music.pitch_scale, music.pitch_scale-0.5,
-		2.5, Tween.TRANS_LINEAR
-	)
-	tween.interpolate_property(
-		music, "volume_db", music.volume_db, music.volume_db-20,
-		2.5, Tween.TRANS_LINEAR
-	)
-
-	var winner_label: RichTextLabel = $gui/winner
-	var text := (
-		"[center][shake rate=50 level=30][rainbow]Congratulations[/rainbow]\n"
-		+ "[color=#{color}]{name}[/color][/shake][/center]"
-	).format({color=winner.tint.to_html(), name=winner.name})
-	winner_label.bbcode_text = text
-	winner_label.visible_characters = 0
-	tween.interpolate_property(
-		winner_label, "visible_characters", 0, text.length(),
-		0.01 * text.length(), Tween.TRANS_LINEAR
-	)
-	tween.start()
+		for horsie in self.ranks:
+			var rank = self.ranks[horsie]
+			if rank == 1:
+				race_winner = horsie
+				if globals.is_official_race:
+					save_winner(race_winner)
+				praise_winner()
+				race_winner.fill_screen_with_face()
 
 
 func _on_turbo_timer_timeout():
@@ -257,4 +257,3 @@ func _on_turbo_timer_timeout():
 func save_winner(winner):
 	globals.file_save(globals.WINNERS_FILE, Time.get_date_string_from_system() + " " + str(winner.name))
 	
-

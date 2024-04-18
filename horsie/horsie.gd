@@ -1,4 +1,5 @@
 extends Node2D
+class_name Horsie
 
 signal lap_completed()
 
@@ -121,3 +122,7 @@ func _on_anim_animation_finished(anim_name):
 		
 		anim.play("run")
 		set_process(true)
+
+
+func fill_screen_with_face():
+	anim.play("fill_screen_with_face")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://horsie/horsie.gd" type="Script" id=1]
 [ext_resource path="res://horsie/horsie_bw.png" type="Texture" id=2]
@@ -72,6 +72,71 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0.4, 0.4 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("sprite/face:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, 2.5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("sprite/face:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 12.5 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("sprite/face:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "fill_screen_with_face"
+length = 1.58
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite/face:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.58 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 20, 20 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite/face:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.58 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 5, 2.5 ), Vector2( -40, 700 ) ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -411,7 +476,7 @@ position = Vector2( -55, -10 )
 rotation = -1.26926
 scale = Vector2( 0.164027, 0.397499 )
 frames = SubResource( 11 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="follow" type="PathFollow2D" parent="."]
@@ -431,6 +496,7 @@ shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 12 )
+anims/fill_screen_with_face = SubResource( 31 )
 anims/ready = SubResource( 13 )
 anims/run = SubResource( 2 )
 anims/sky_rocket = SubResource( 30 )
