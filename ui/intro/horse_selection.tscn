@@ -80,7 +80,7 @@ theme = SubResource( 3 )
 custom_colors/font_color_hover = Color( 0.909804, 0.0392157, 0.0392157, 1 )
 custom_colors/font_color_pressed = Color( 0.0235294, 0.839216, 0.0352941, 1 )
 custom_fonts/font = ExtResource( 2 )
-text = "START"
+text = "METER A CORRER"
 
 [node name="SliderBackground" type="ColorRect" parent="."]
 margin_left = 720.0
